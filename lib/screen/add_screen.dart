@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/models/notes_operation.dart';
+import 'package:task_manager/models/note/notes_operation.dart';
 
 class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String titleText;
-    String descriptionText;
+    String? titleText;
+    String? descriptionText;
 
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
-        title: Text('Task Manager'),
+        title: Text('Task Provider'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -65,8 +65,8 @@ class AddScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Provider.of<NotesOperation>(context, listen: false)
-                    .addNewNote(titleText, descriptionText);
+                Provider.of<NotesOperation>(context, listen: false).addNewNote(
+                    titleText.toString(), descriptionText.toString());
                 Navigator.pop(context);
               },
               style: TextButton.styleFrom(

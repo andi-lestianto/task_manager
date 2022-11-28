@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
-import 'package:task_manager/models/note.dart';
+import 'package:task_manager/models/note/note.dart';
 
 class NotesOperation with ChangeNotifier {
   //List of note
+
   List<Note> _notes = [];
 
   List<Note> get getNotes {
     return _notes;
+  }
+
+  NotesOperation() {
+    addNewNote('First Tittle', 'First Description');
   }
 
   void addNewNote(String title, String description) {

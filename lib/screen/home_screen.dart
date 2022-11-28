@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/models/note.dart';
-import 'package:task_manager/models/notes_operation.dart';
+import 'package:task_manager/models/note/note.dart';
+import 'package:task_manager/models/note/notes_operation.dart';
 import 'package:task_manager/screen/add_screen.dart';
+import 'package:task_manager/screen/second_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -22,12 +23,24 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       appBar: AppBar(
-        title: Text(
-          'Tes Provider',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Tes Provider',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.white),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SecondScreen()));
+                },
+                child: Text('2', style: TextStyle(color: Colors.black)))
+          ],
         ),
         centerTitle: true,
         elevation: 0,
@@ -94,6 +107,9 @@ class NotesCard extends StatelessWidget {
                               child: Text('Tidak')),
                           TextButton(
                               onPressed: () {
+                                // context
+                                //     .read<NotesOperation>()
+                                //     .deleteNote(note.title);
                                 Provider.of<NotesOperation>(context,
                                         listen: false)
                                     .deleteNote(note.title);
