@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Text(
-          'Task Manager',
+          'Tes Provider',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
@@ -57,23 +57,54 @@ class NotesCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(15),
       padding: EdgeInsets.all(15),
-      height: 150,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            note.title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                note.title,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 5),
+              Text(
+                note.description,
+                style: TextStyle(fontSize: 17),
+              ),
+            ],
           ),
-          SizedBox(height: 5),
-          Text(
-            note.description,
-            style: TextStyle(fontSize: 17),
-          ),
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Hapus note?'),
+                        content: Text('Yakin ingin menghapus note?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Tidak')),
+                          TextButton(
+                              onPressed: () {
+                                Provider.of<NotesOperation>(context,
+                                        listen: false)
+                                    .deleteNote(note.title);
+                                Navigator.pop(context);
+                              },
+                              child: Text('Ya'))
+                        ],
+                      );
+                    });
+              },
+              icon: Icon(Icons.delete))
         ],
       ),
     );

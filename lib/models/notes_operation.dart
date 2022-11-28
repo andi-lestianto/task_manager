@@ -9,14 +9,15 @@ class NotesOperation with ChangeNotifier {
     return _notes;
   }
 
-  NotesOperation() {
-    addNewNote('First Note', 'First Note Description');
-  }
-
   void addNewNote(String title, String description) {
     //Note object
     Note note = Note(title, description);
     _notes.add(note);
+    notifyListeners();
+  }
+
+  void deleteNote(String title) {
+    _notes.removeWhere((element) => element.title == title);
     notifyListeners();
   }
 }
